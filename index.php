@@ -1,10 +1,10 @@
 <?php
-
 session_start();
-include('dbconnection.php');
+include('includes/dbconnection.php');
 
-if (strlen($_SESSION['bpmsaid'] == 0)) {
+if (!isset($_SESSION['bpmsaid']) || strlen($_SESSION['bpmsaid']) == 0) {
     header('location:logout.php');
+    exit;
 }
 ?>
 
@@ -16,6 +16,8 @@ if (strlen($_SESSION['bpmsaid'] == 0)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hamro Salon</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,106 +39,98 @@ if (strlen($_SESSION['bpmsaid'] == 0)) {
               <span class="material-symbols-sharp">person_outline</span>
               <h3>Appointment</h3>
            </a>
-           <a href="#" class="active">
-            <span class="material-symbols-sharp">person_outline </span>
-            <h3>custumers</h3>
-         </a>
        
-           <a href="#">
+           <a href="service.php">
             <span class="material-symbols-sharp"> menu </span>
             <h3>service</h3>
          </a>
-           <a href="#">
-              <span class="material-symbols-sharp">settings </span>
-              <h3>settings</h3>
-           </a>
-           <a href="#">
-              <span class="material-symbols-sharp">add </span>
-              <h3>Add Service</h3>
+           <a href="pending.html">
+            <span class="material-symbols-outlined">pending </span>
+            <h3>Pending Appointment</h3>
            </a>
            <a href="#">
               <span class="material-symbols-sharp">logout </span>
               <h3>logout</h3>
            </a>
+          
+
           </div>
-      </aside>
       
-      <!-- start main part -->
-      <main>
-           <h1>Dashbord</h1>
 
-           <div class="date">
-             <input type="date" >
-           </div>
-
-        <div class="insights">
-
- 
-            <div class="appointment">
-               <span class="material-symbols-sharp">trending_up</span>
-               <div class="middle">
-
-                 <div class="left">
-                   <h3>Total Appointment</h3>
-                 
-                   <h1><?php /* Insert PHP logic to fetch and display total appointments */ ?></h1>
-                 </div>
-                  <div class="progress">
-                      <svg>
-                         <circle  r="30" cy="40" cx="40"></circle>
-                      </svg>
-                      <!-- PHP logic to calculate and display progress -->
-                      <div class="number"><p><?php /* Insert PHP logic to calculate and display progress */ ?></p></div>
-                  </div>
-
-               </div>
-               <small>Last 24 Hours</small>
+       <!-- insights section -->
+<div class="insights">
+    <div class="appointment">
+        <span class="material-symbols-sharp">trending_up</span>
+        <div class="middle">
+            <div class="left">
+                <h3>Total Appointment</h3>
+                <?php
+                // PHP logic to fetch and display total appointments
+                $total_appointments = getTotalAppointments(); // assume this function fetches the total appointments
+                echo "<h1>$total_appointments</h1>";
+               ?>
             </div>
-           <!-- end selling -->
-              <!-- start expenses -->
-              <div class="expenses">
-                <span class="material-symbols-sharp">local_mall</span>
-                <div class="middle">
- 
-                  <div class="left">
-                    <h3>Complete Appointment</h3>
-                    <!-- PHP logic to fetch and display completed appointments -->
-                    <h1><?php /* Insert PHP logic to fetch and display completed appointments */ ?></h1>
-                  </div>
-                   <div class="progress">
-                       <svg>
-                          <circle  r="30" cy="40" cx="40"></circle>
-                       </svg>
-                       <!-- PHP logic to calculate and display progress -->
-                       <div class="number"><p><?php /* Insert PHP logic to calculate and display progress */ ?></p></div>
-                   </div>
- 
-                </div>
-                <small>Last 24 Hours</small>
-             </div>
-            <!-- end expenses -->
-               <!-- start income -->
-               <div class="income">
-                <span class="material-symbols-sharp">stacked_line_chart</span>
-                <div class="middle">
- 
-                  <div class="left">
-                    <h3>Total Sales</h3>
-                    
-                    <h1><?php   ?></h1>
-                  </div>
-                   <div class="progress">
-                       <svg>
-                          <circle  r="30" cy="40" cx="40"></circle>
-                       </svg>
-                     
-                       <div class="number"><p><?php  ?></p></div>
-                   </div>
- 
-                </div>
-                <small>Last 24 Hours</small>
-             </div>
-            <!-- end income -->
+            <div class="progress">
+                <svg>
+                    <circle r="30" cy="40" cx="40"></circle>
+                </svg>
+                <!-- PHP logic to calculate and display progress -->
+                <?php
+                $progress = calculateProgress(); // assume this function calculates the progress
+                echo "<div class='number'><p>$progress%</p></div>";
+               ?>
+            </div>
+        </div>
+        <small>Last 24 Hours</small>
+    </div>
+
+   
+                <?php
+               
+                $completed_appointments = getCompletedAppointments(); 
+                echo "<h1>$completed_appointments</h1>";
+               ?>
+            </div>
+            <div class="progress">
+                <svg>
+                    <circle r="30" cy="40" cx="40"></circle>
+                </svg>
+             
+                <?php
+                $progress = calculateProgress(); 
+                echo "<div class='number'><p>$progress%</p></div>";
+               ?>
+            </div>
+        </div>
+        <small>Last 24 Hours</small>
+    </div>
+    <!-- end expenses -->
+    <!-- start income -->
+    <div class="income">
+        <span class="material-symbols-sharp">stacked_line_chart</span>
+        <div class="middle">
+            <div class="left">
+                <h3>Total Sales</h3>
+                <?php
+              
+                $total_sales = getTotalSales();
+                echo "<h1>$total_sales</h1>";
+               ?>
+            </div>
+            <div class="progress">
+                <svg>
+                    <circle r="30" cy="40" cx="40"></circle>
+                </svg>
+                <!-- PHP logic to calculate and display progress -->
+                <?php
+                $progress = calculateProgress(); // assume this function calculates the progress
+                echo "<div class='number'><p>$progress%</p></div>";
+               ?>
+            </div>
+        </div>
+        <small>Last 24 Hours</small>
+    </div>
+    <!-- end income -->
 
         </div>
        <!-- end insights -->
