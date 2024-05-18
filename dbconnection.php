@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbUser = 'root';    
 $dbPassword = '';   
-$dbName = 'msmsdb';
+$dbName = 'dashboard';
 
 
 $conn = new mysqli($host, $dbUser, $dbPassword, $dbName);
