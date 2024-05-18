@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('includes/dbconnection.php');
+include('dbconnection.php');
 
 if (!isset($_SESSION['bpmsaid']) || strlen($_SESSION['bpmsaid']) == 0) {
     header('location:logout.php');
@@ -106,31 +106,65 @@ if (!isset($_SESSION['bpmsaid']) || strlen($_SESSION['bpmsaid']) == 0) {
     </div>
     <!-- end expenses -->
     <!-- start income -->
-    <div class="income">
-        <span class="material-symbols-sharp">stacked_line_chart</span>
-        <div class="middle">
-            <div class="left">
-                <h3>Total Sales</h3>
-                <?php
-              
-                $total_sales = getTotalSales();
-                echo "<h1>$total_sales</h1>";
-               ?>
+     <!-- start seling -->
+     <div class="sales">
+               <span class="material-symbols-sharp">trending_up</span>
+               <div class="middle">
+
+                 <div class="left">
+                   <h3>Total Appointment</h3>
+                   <h1>200</h1>
+                 </div>
+                  <div class="progress">
+                      <svg>
+                         <circle  r="30" cy="40" cx="40"></circle>
+                      </svg>
+                      <div class="number"><p>80%</p></div>
+                  </div>
+
+               </div>
+               <small>Last 24 Hours</small>
             </div>
-            <div class="progress">
-                <svg>
-                    <circle r="30" cy="40" cx="40"></circle>
-                </svg>
-                <!-- PHP logic to calculate and display progress -->
-                <?php
-                $progress = calculateProgress(); // assume this function calculates the progress
-                echo "<div class='number'><p>$progress%</p></div>";
-               ?>
-            </div>
-        </div>
-        <small>Last 24 Hours</small>
-    </div>
-    <!-- end income -->
+           <!-- end seling -->
+              <!-- start expenses -->
+              <div class="expenses">
+                <span class="material-symbols-sharp">local_mall</span>
+                <div class="middle">
+ 
+                  <div class="left">
+                    <h3>completed Appoinment</h3>
+                    <h1>100</h1>
+                  </div>
+                   <div class="progress">
+                       <svg>
+                          <circle  r="30" cy="40" cx="40"></circle>
+                       </svg>
+                       <div class="number"><p>80%</p></div>
+                   </div>
+ 
+                </div>
+                <small>Last 24 Hours</small>
+             </div>
+            <!-- end seling -->
+               <!-- start seling -->
+               <div class="income">
+                <span class="material-symbols-sharp">stacked_line_chart</span>
+                <div class="middle">
+ 
+                  <div class="left">
+                    <h3>Total Sales</h3>
+                    <h1>Rs 25,024</h1>
+                  </div>
+                   <div class="progress">
+                       <svg>
+                          <circle  r="30" cy="40" cx="40"></circle>
+                       </svg>
+                       <div class="number"><p>80%</p></div>
+                   </div>
+ 
+                </div>
+                <small>Last 24 Hours</small>
+             </div>
 
         </div>
        <!-- end insights -->
