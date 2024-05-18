@@ -1,4 +1,15 @@
-<div id="appointmentsBtn">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Details - Hamro Salon</title>
+  <link rel="stylesheet" href="apointment.css">
+</head>
+<body>
+  <div class="container">
+    <div id="appointmentsBtn">
+    <div id="appointmentsBtn">
   <h2>Appointment Details</h2>
   <table class="table table-striped">
     <thead>
@@ -13,7 +24,7 @@
       </tr>
     </thead>
     <?php
-   include('include/dbconnection.php');
+   include('dbconnection.php');
     $sql = "SELECT * FROM appointments";
     $result = $conn->query($sql);
 
@@ -82,3 +93,7 @@
     });
   });
 </script>
+
+    </div>
+</body>
+</html>
